@@ -4,6 +4,15 @@
 
 Tsui Dot は、写真・イラスト・ローカルカメラ映像を 8bit 風の 2D ドット絵やガラス小窓風の小窓表示へ変換する、ブラウザ内完結の Tsui series ツールです。
 
+- ログイン不要
+- 広告なし
+- インストール不要（Cloudflare版はPWAとしてインストール可能）
+- 外部モジュールなし / CDNなし / JavaScriptのみ
+- アプリ本体からの外部送信なし（CSP `connect-src 'none'`）
+- `MODE full` による全体ドット絵化
+- `MODE window` による、元画像の一部だけをガラス小窓内でドット化する表示
+- PNG出力対応
+
 ---
 
 ## ウェブサイト版（Cloudflare Pages：PWA対応）
@@ -28,7 +37,7 @@ Tsui Dot は、写真・イラスト・ローカルカメラ映像を 8bit 風�
 ```
 1. tsui-dot.html をブラウザで開く
 2. 「画像」で写真やイラストを読み込む
-3. MODE / DOT / PALETTE / COLORS / LIGHT / CONTRAST / SAT を調整
+3. MODE / DOT / SIZE / GLASS等 を調整
 4. 「PNG」で保存
 ```
 
