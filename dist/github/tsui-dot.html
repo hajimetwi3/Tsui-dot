@@ -1,0 +1,2530 @@
+<!DOCTYPE html>
+<html lang="ja" data-build="github" translate="no">
+<head>
+<meta charset="UTF-8">
+<style id="antiClickjack">html{display:none !important;}
+</style>
+<script>(function(){
+  if (self === top) {
+    var s = document.getElementById('antiClickjack');
+    if (s && s.parentNode) s.parentNode.removeChild(s);
+  } else {
+    try { top.location = self.location; } catch (e) {}
+    try { document.documentElement.innerHTML = ''; } catch (e) {}
+  }
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Browser-only 8-bit pixel art converter for local images and local camera frames.">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#101114">
+<meta name="format-detection" content="telephone=no">
+<meta name="google" content="notranslate">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'none'; manifest-src 'self' data:; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none';">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%0A%20%20%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%2296%22%20fill%3D%22%23101114%22%2F%3E%0A%20%20%3Crect%20x%3D%22104%22%20y%3D%22104%22%20width%3D%22304%22%20height%3D%22304%22%20fill%3D%22%23172026%22%20stroke%3D%22%2371ead6%22%20stroke-width%3D%2218%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M144%20160h64v64h-64zM224%20160h64v64h-64zM304%20160h64v64h-64zM144%20240h64v64h-64zM224%20240h64v64h-64zM304%20240h64v64h-64zM144%20320h64v64h-64zM224%20320h64v64h-64zM304%20320h64v64h-64z%22%20fill%3D%22%2323313a%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M144%20160h64v64h-64zM304%20160h64v64h-64zM224%20240h64v64h-64zM144%20320h64v64h-64zM304%20320h64v64h-64z%22%20fill%3D%22%23ffcf66%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M188%20212h136v34H188zM222%20292h68v28h-68z%22%20fill%3D%22%23101114%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M132%20126h248%22%20stroke%3D%22%23edf2f5%22%20stroke-width%3D%228%22%20opacity%3D%22.42%22%2F%3E%0A%3C%2Fsvg%3E" type="image/svg+xml">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Tsui%20Dot%22%2C%22short_name%22%3A%22Tsui%20Dot%22%2C%22description%22%3A%22Browser-only%20glass-window%20style%20converter%20with%20movable%20full-image%20and%20glass%20window%20modes.%20No%20login%2C%20no%20outbound%20traffic.%20%2F%20%E5%86%99%E7%9C%9F%E3%83%BB%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88%E3%83%BB%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%82%AB%E3%83%A1%E3%83%A9%E6%98%A0%E5%83%8F%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E5%86%85%E3%81%A0%E3%81%91%E3%81%A7%E5%85%A8%E4%BD%93%E5%A4%89%E6%8F%9B%E3%81%BE%E3%81%9F%E3%81%AF%E7%A7%BB%E5%8B%95%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%AC%E3%83%A9%E3%82%B9%E5%B0%8F%E7%AA%93%E9%A2%A8%E3%81%B8%E5%A4%89%E6%8F%9B%E3%80%82%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E4%B8%8D%E8%A6%81%E3%80%81%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%A4%96%E9%83%A8%E9%80%81%E4%BF%A1%E3%81%AA%E3%81%97%E3%80%82%22%2C%22start_url%22%3A%22.%2F%22%2C%22scope%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23101114%22%2C%22theme_color%22%3A%22%23101114%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2522http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2522%2520viewBox%253D%25220%25200%2520512%2520512%2522%253E%250A%2520%2520%253Crect%2520width%253D%2522512%2522%2520height%253D%2522512%2522%2520rx%253D%252296%2522%2520fill%253D%2522%2523101114%2522%252F%253E%250A%2520%2520%253Crect%2520x%253D%2522104%2522%2520y%253D%2522104%2522%2520width%253D%2522304%2522%2520height%253D%2522304%2522%2520fill%253D%2522%2523172026%2522%2520stroke%253D%2522%252371ead6%2522%2520stroke-width%253D%252218%2522%252F%253E%250A%2520%2520%253Cpath%2520d%253D%2522M144%2520160h64v64h-64zM224%2520160h64v64h-64zM304%2520160h64v64h-64zM144%2520240h64v64h-64zM224%2520240h64v64h-64zM304%2520240h64v64h-64zM144%2520320h64v64h-64zM224%2520320h64v64h-64zM304%2520320h64v64h-64z%2522%2520fill%253D%2522%252323313a%2522%252F%253E%250A%2520%2520%253Cpath%2520d%253D%2522M144%2520160h64v64h-64zM304%2520160h64v64h-64zM224%2520240h64v64h-64zM144%2520320h64v64h-64zM304%2520320h64v64h-64z%2522%2520fill%253D%2522%2523ffcf66%2522%252F%253E%250A%2520%2520%253Cpath%2520d%253D%2522M188%2520212h136v34H188zM222%2520292h68v28h-68z%2522%2520fill%253D%2522%2523101114%2522%252F%253E%250A%2520%2520%253Cpath%2520d%253D%2522M132%2520126h248%2522%2520stroke%253D%2522%2523edf2f5%2522%2520stroke-width%253D%25228%2522%2520opacity%253D%2522.42%2522%252F%253E%250A%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22any%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%22%7D%5D%7D">
+<style>
+* { box-sizing: border-box; }
+
+:root {
+  --bg: #101114;
+  --bg-2: #171a1f;
+  --bg-3: #20242b;
+  --fg: #edf2f5;
+  --muted: #9aa7ad;
+  --faint: #5e6b72;
+  --line: #303842;
+  --accent: #71ead6;
+  --accent-2: #ffcf66;
+  --accent-3: #ff7a90;
+  --ok: #91dc8e;
+  --warn: #ffcf66;
+  --danger: #ff7a90;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body {
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(113, 234, 214, 0.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 207, 102, 0.035) 1px, transparent 1px),
+    var(--bg);
+  background-size: 32px 32px, 32px 32px, auto;
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif;
+  font-size: 14px;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button, select {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-3);
+  color: var(--fg);
+}
+
+button {
+  padding: 0 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+button:hover:not(:disabled), select:hover {
+  border-color: var(--accent);
+}
+
+button:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #08100f;
+  font-weight: 800;
+}
+
+.appbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(16, 17, 20, 0.94);
+}
+
+.brand {
+  color: var(--accent);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+}
+
+.build-pill {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: var(--accent-2);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+.status-text {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.stage {
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  overflow: hidden;
+}
+
+.stage.dragging .glass {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 2px rgba(255, 207, 102, 0.2), 0 28px 80px var(--shadow);
+}
+
+.glass {
+  position: relative;
+  width: min(100%, 1040px);
+  max-width: 100%;
+  height: 100%;
+  max-height: min(760px, calc(100dvh - 140px));
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(113, 234, 214, 0.46);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(113, 234, 214, 0.12), transparent 36%),
+    linear-gradient(315deg, rgba(255, 122, 144, 0.10), transparent 44%),
+    #0b0d10;
+  box-shadow: 0 28px 80px var(--shadow);
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(237, 242, 245, 0.10);
+  pointer-events: none;
+}
+
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 0 46%, rgba(255, 255, 255, 0.10) 48%, transparent 54% 100%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+#outputCanvas {
+  z-index: 1;
+  display: block;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+  max-width: calc(100% - 36px);
+  max-height: calc(100% - 36px);
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background: #080a0d;
+}
+
+body.window-mode #outputCanvas {
+  image-rendering: auto;
+}
+
+.glass-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  background:
+    linear-gradient(135deg, rgba(113, 234, 214, 0.10), transparent 34%, rgba(255, 255, 255, 0.08) 48%, transparent 58%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.035), transparent 42%, rgba(0, 0, 0, 0.10));
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+body.scanlines .glass-lines {
+  display: block;
+}
+
+.empty-state {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(237, 242, 245, 0.18);
+  border-radius: 6px;
+  padding: 6px 10px;
+  background: rgba(16, 17, 20, 0.82);
+  color: var(--muted);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  white-space: nowrap;
+}
+
+.empty-state.hidden {
+  display: none;
+}
+
+.controls {
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  max-width: 100%;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 14px;
+  padding: 16px;
+  overflow: auto;
+  border-left: 1px solid var(--line);
+  background: rgba(23, 26, 31, 0.96);
+  scrollbar-color: var(--line) transparent;
+  scrollbar-width: thin;
+}
+
+.controls::-webkit-scrollbar {
+  width: 8px;
+}
+
+.controls::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.controls::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--line);
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.toolbar button {
+  padding: 0 8px;
+}
+
+.meta-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  color: var(--muted);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+.meta-line span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.control-grid {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr) 42px;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  color: var(--muted);
+}
+
+.control-row span {
+  color: var(--fg);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+}
+
+.control-row select {
+  grid-column: 2 / 4;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.control-row output {
+  text-align: right;
+  color: var(--accent-2);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.nudge-row {
+  grid-template-columns: 82px minmax(0, 1fr) 68px;
+  align-items: center;
+}
+
+.nudge-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 36px);
+  grid-template-rows: repeat(3, 36px);
+  gap: 6px;
+  justify-content: start;
+}
+
+.nudge-pad button {
+  width: 36px;
+  min-height: 36px;
+  padding: 0;
+  border-color: rgba(113, 234, 214, 0.22);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#windowUp {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#windowLeft {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#windowCenter {
+  grid-column: 2;
+  grid-row: 2;
+  color: var(--accent-2);
+}
+
+#windowRight {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+#windowDown {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+#windowPositionValue {
+  min-width: 64px;
+}
+
+.intake-row {
+  grid-template-columns: 82px minmax(0, 1fr);
+  align-items: center;
+}
+
+.intake-pad {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  width: 100%;
+}
+
+.intake-pad button {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 30px;
+  padding: 0 4px;
+  border-color: rgba(113, 234, 214, 0.22);
+  font-size: 0.82rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.intake-pad-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.intake-max-hint {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: right;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.window-only.is-hidden,
+.full-only.is-hidden {
+  display: none;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.switches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.switches label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 10px;
+  background: var(--bg-2);
+  color: var(--muted);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.switches input {
+  accent-color: var(--accent);
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  padding: 7px 14px;
+  border-top: 1px solid var(--line);
+  background: rgba(16, 17, 20, 0.94);
+  color: var(--faint);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+}
+
+footer span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.modal-backdrop.open {
+  display: grid;
+}
+
+.modal {
+  width: min(680px, 100%);
+  max-height: min(720px, 88vh);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-2);
+  box-shadow: 0 32px 90px var(--shadow);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-header strong {
+  color: var(--accent);
+}
+
+.modal-body {
+  overflow: auto;
+  padding: 16px;
+  line-height: 1.8;
+}
+
+.modal-body h2 {
+  margin: 18px 0 6px;
+  color: var(--accent-2);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.modal-body p {
+  margin: 0 0 10px;
+  color: var(--muted);
+}
+
+.modal-body code {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.modal-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: rgba(113, 234, 214, 0.4);
+  text-underline-offset: 2px;
+}
+
+.modal-body a:hover {
+  text-decoration-color: var(--accent);
+}
+
+.modal-body a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.modal-body pre {
+  margin: 6px 0 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  overflow-x: auto;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.modal-body pre code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--muted);
+}
+
+@media (max-width: 880px) {
+  body {
+    overflow: auto;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(360px, 56vh) auto;
+  }
+
+  .stage {
+    padding: 12px;
+  }
+
+  .glass {
+    min-height: 300px;
+  }
+
+  #outputCanvas {
+    max-width: calc(100vw - 48px);
+    max-height: calc(56vh - 36px);
+  }
+
+  .controls {
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 560px) {
+  .appbar {
+    gap: 7px;
+    padding: 8px;
+  }
+
+  .brand {
+    font-size: 0.95rem;
+  }
+
+  .build-pill {
+    display: none;
+  }
+
+  .toolbar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .control-row {
+    grid-template-columns: 72px minmax(0, 1fr) 38px;
+  }
+
+  .nudge-row {
+    grid-template-columns: 72px minmax(0, 1fr) 72px;
+  }
+
+  .switches {
+    grid-template-columns: 1fr;
+  }
+
+  #outputCanvas {
+    max-width: calc(100vw - 88px);
+    max-height: calc(50vh - 36px);
+  }
+}
+
+</style>
+<title>Tsui Dot</title>
+</head>
+<body>
+<header class="appbar">
+  <div class="brand" aria-label="Tsui Dot">TSUI DOT</div>
+  <div class="build-pill">v1.1.0</div>
+  <div id="statusText" class="status-text" data-i18n="header.status.ready">ready</div>
+  <button id="btnLang" type="button" title="Switch language / 言語切替">EN</button>
+  <button id="btnAbout" type="button" data-i18n-attr="title=header.about.title" data-i18n="header.about" title="About">about</button>
+</header>
+
+<main class="workspace">
+  <section class="stage" id="dropZone" data-i18n-attr="aria-label=aria.previewArea" aria-label="pixel art preview">
+    <div class="glass">
+      <canvas id="outputCanvas" width="960" height="640" data-i18n-attr="aria-label=aria.outputCanvas" aria-label="converted pixel art"></canvas>
+      <div class="glass-lines" aria-hidden="true"></div>
+      <div id="emptyState" class="empty-state" data-i18n="empty.state">画像を開く / CAMERA</div>
+    </div>
+    <video id="cameraVideo" playsinline muted hidden></video>
+  </section>
+
+  <aside class="controls" data-i18n-attr="aria-label=aria.controls" aria-label="controls">
+    <div class="toolbar">
+      <input id="fileInput" type="file" accept="image/*" hidden>
+      <button id="btnOpen" type="button" class="primary" data-i18n="toolbar.open">画像</button>
+      <button id="btnCamera" type="button" data-i18n="toolbar.camera">CAMERA</button>
+      <button id="btnFreeze" type="button" data-i18n="toolbar.freeze" disabled>FIX</button>
+      <button id="btnDownload" type="button" data-i18n="toolbar.download">PNG</button>
+    </div>
+
+    <div class="meta-line">
+      <span id="sourceMeta">sample</span>
+      <span id="renderMeta">-</span>
+    </div>
+
+    <div class="control-grid">
+      <label class="control-row" for="renderMode">
+        <span data-i18n="label.mode">MODE</span>
+        <select id="renderMode">
+          <option value="full" data-i18n="label.mode.full">full</option>
+          <option value="window" data-i18n="label.mode.window">window</option>
+        </select>
+      </label>
+
+      <label class="control-row" for="cameraFacing">
+        <span data-i18n="label.cam">CAM</span>
+        <select id="cameraFacing">
+          <option value="environment" data-i18n="label.cam.back">back</option>
+          <option value="user" data-i18n="label.cam.front">front</option>
+        </select>
+      </label>
+
+      <label class="control-row full-only" for="cellSize">
+        <span data-i18n="label.dot">DOT</span>
+        <input id="cellSize" type="range" min="6" max="64" step="1">
+        <output id="cellSizeValue"></output>
+      </label>
+
+      <label class="control-row window-only" for="windowCells">
+        <span data-i18n="label.res">RES</span>
+        <select id="windowCells">
+          <option value="16">16x16</option>
+          <option value="10">10x10</option>
+        </select>
+      </label>
+
+      <label class="control-row window-only" for="windowSize">
+        <span data-i18n="label.size">SIZE</span>
+        <input id="windowSize" type="range" min="18" max="76" step="1">
+        <output id="windowSizeValue"></output>
+      </label>
+
+      <label class="control-row window-only" for="windowIntake">
+        <span data-i18n="label.glass">GLASS</span>
+        <input id="windowIntake" type="range" min="100" max="220" step="10">
+        <output id="windowIntakeValue"></output>
+      </label>
+
+      <div class="control-row intake-row window-only" data-i18n-attr="aria-label=aria.intakeRow" aria-label="glass intake quick adjust">
+        <span></span>
+        <div class="intake-pad-wrap">
+          <div class="intake-pad">
+            <button type="button" id="intakeMinusLarge" class="nudge-btn" data-i18n-attr="aria-label=aria.intakeMinusLarge" aria-label="glass -50%">−50%</button>
+            <button type="button" id="intakeMinusSmall" class="nudge-btn" data-i18n-attr="aria-label=aria.intakeMinusSmall" aria-label="glass -10%">−10%</button>
+            <button type="button" id="intakePlusSmall" class="nudge-btn" data-i18n-attr="aria-label=aria.intakePlusSmall" aria-label="glass +10%">+10%</button>
+            <button type="button" id="intakePlusLarge" class="nudge-btn" data-i18n-attr="aria-label=aria.intakePlusLarge" aria-label="glass +50%">+50%</button>
+          </div>
+          <span class="intake-max-hint" id="windowIntakeMax"></span>
+        </div>
+      </div>
+
+      <div class="control-row nudge-row window-only" data-i18n-attr="aria-label=aria.posRow" aria-label="window position">
+        <span data-i18n="label.pos">POS</span>
+        <div class="nudge-pad">
+          <button id="windowUp" type="button" data-i18n-attr="aria-label=aria.posUp" aria-label="move window up">↑</button>
+          <button id="windowLeft" type="button" data-i18n-attr="aria-label=aria.posLeft" aria-label="move window left">←</button>
+          <button id="windowCenter" type="button" data-i18n-attr="aria-label=aria.posCenter" aria-label="center window">□</button>
+          <button id="windowRight" type="button" data-i18n-attr="aria-label=aria.posRight" aria-label="move window right">→</button>
+          <button id="windowDown" type="button" data-i18n-attr="aria-label=aria.posDown" aria-label="move window down">↓</button>
+        </div>
+        <output id="windowPositionValue"></output>
+      </div>
+
+      <label class="control-row" for="paletteMode">
+        <span data-i18n="label.palette">PALETTE</span>
+        <select id="paletteMode">
+          <option value="glassV2">glass v2</option>
+          <option value="glass">glass</option>
+          <option value="soft">soft</option>
+        </select>
+      </label>
+
+      <label class="control-row" for="colorLevels">
+        <span data-i18n="label.colors">COLORS</span>
+        <select id="colorLevels">
+          <option value="16">16</option>
+          <option value="32">32</option>
+          <option value="64">64</option>
+        </select>
+      </label>
+
+      <label class="control-row" for="brightness">
+        <span data-i18n="label.light">LIGHT</span>
+        <input id="brightness" type="range" min="-40" max="40" step="1">
+        <output id="brightnessValue"></output>
+      </label>
+
+      <label class="control-row" for="contrast">
+        <span data-i18n="label.contrast">CONTRAST</span>
+        <input id="contrast" type="range" min="-40" max="60" step="1">
+        <output id="contrastValue"></output>
+      </label>
+
+      <label class="control-row" for="saturation">
+        <span data-i18n="label.sat">SAT</span>
+        <input id="saturation" type="range" min="-60" max="80" step="1">
+        <output id="saturationValue"></output>
+      </label>
+
+      <label class="control-row" for="exportScale">
+        <span data-i18n="label.scale">SCALE</span>
+        <select id="exportScale">
+          <option value="1">1x</option>
+          <option value="2">2x</option>
+          <option value="3">3x</option>
+          <option value="4">4x</option>
+        </select>
+      </label>
+
+      <label class="control-row" for="shiftX">
+        <span data-i18n="label.shiftX">SHIFT X</span>
+        <input id="shiftX" type="range" min="-45" max="45" step="1">
+        <output id="shiftXValue"></output>
+      </label>
+
+      <label class="control-row" for="shiftY">
+        <span data-i18n="label.shiftY">SHIFT Y</span>
+        <input id="shiftY" type="range" min="-45" max="45" step="1">
+        <output id="shiftYValue"></output>
+      </label>
+    </div>
+
+    <div class="switches">
+      <label><input id="ditherToggle" type="checkbox"> <span data-i18n="switch.dither">dither</span></label>
+      <label><input id="edgeToggle" type="checkbox"> <span data-i18n="switch.edge">edge</span></label>
+      <label><input id="flipToggle" type="checkbox"> <span data-i18n="switch.flip">flip</span></label>
+      <label><input id="cropToggle" type="checkbox"> <span data-i18n="switch.square">square</span></label>
+      <label><input id="scanlineToggle" type="checkbox"> <span data-i18n="switch.window">window</span></label>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <span data-i18n="footer.localCanvas">local canvas only</span>
+  <span data-i18n="footer.connectSrcNone">connect-src none</span>
+  <span data-i18n="footer.thirdPartyNone">third-party none</span>
+</footer>
+
+<div class="modal-backdrop" id="aboutModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <div class="modal-header">
+      <strong id="aboutTitle" data-i18n="about.title">About Tsui Dot</strong>
+      <button id="btnCloseAbout" type="button" data-i18n-attr="title=modal.close" title="閉じる">x</button>
+    </div>
+    <div class="modal-body">
+      <p data-i18n-html="about.intro"><strong>Tsui Dot</strong> は、写真・イラスト・ローカルカメラ映像を 8bit 風の 2D ドット絵やガラス小窓風の小窓表示へ変換する、ブラウザ内完結の Tsui series ツールです。</p>
+
+      <h2 data-i18n="about.privacy.title">PRIVACY</h2>
+      <p data-i18n-html="about.privacy.p1">画像やカメラ映像は、本アプリ本体から外部送信されません。<code>connect-src 'none'</code> により、<code>fetch</code> 等のネットワーク送信はブラウザレベルで禁止されます。DevTools の Network タブで確認いただけます。</p>
+      <p data-i18n-html="about.privacy.p2">画像データやカメラ映像は <code>localStorage</code> や <code>IndexedDB</code> に保存しません。保存されるのは DOT サイズやパレットなどの UI 設定のみです。</p>
+      <p data-i18n-html="about.privacy.p3">本アプリ本体には計測機能は一切含まれていません(上記の <code>connect-src 'none'</code> により、ブラウザの CSP 機構で外部送信が禁止されるため)。</p>
+      <p data-i18n-html="about.privacy.p4">一方、作者プロフィールや Tsui series のランディングページ等の情報ページでは、訪問数の把握に Cloudflare Web Analytics を利用しています(Cookie なし / フィンガープリントなし / クロスサイトトラッキングなし)。</p>
+      <p data-i18n="about.privacy.p5">なお、別途プラットフォーム側(配信元サーバや中継事業者等)で計測・記録されている可能性はあります。</p>
+
+      <h2 data-i18n="about.camera.title">CAMERA</h2>
+      <p data-i18n="about.camera.body">カメラはユーザー操作時だけ要求され、背面優先・前面優先を切り替えられます。カメラ映像も外部へ送信されず、変換プレビューと PNG 出力のためにだけ使われます。</p>
+
+      <h2 data-i18n="about.disclaimer.title">DISCLAIMER</h2>
+      <p data-i18n="about.disclaimer.body">本ソフトウェアは現状有姿で提供され、動作の正確性・可用性について一切の保証はありません。ご利用は自己責任でお願いします。出力画像の保存・管理は利用者の責任で行ってください。</p>
+
+      <h2 data-i18n="about.license.title">LICENSE (THIS APP)</h2>
+      <p data-i18n-html="about.license.copyright">Copyright (c) 2026 <a href="https://hajimetwi3.github.io/hajimetwi3/" target="_blank" rel="noopener noreferrer">Hajime Tsui</a></p>
+<pre><code>MIT License
+
+Copyright (c) 2026 Hajime Tsui
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</code></pre>
+
+      <h2 data-i18n="about.thirdParty.title">THIRD-PARTY</h2>
+      <p data-i18n="about.thirdParty.body">なし。外部モジュール、CDN、解析タグは含みません。</p>
+
+      <h2 data-i18n="about.related.title">RELATED</h2>
+      <p data-i18n-html="about.related.tsui">本アプリは <a href="https://hajimetwi3.github.io/hajimetwi3/Tsui-series/" target="_blank" rel="noopener noreferrer">Tsui series</a>(静かな道具たち)の一つです。</p>
+      <p data-i18n-html="about.related.github">GitHub: <a href="https://github.com/hajimetwi3/Tsui-dot" target="_blank" rel="noopener noreferrer">github.com/hajimetwi3/Tsui-dot</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+const APP_VERSION = '1.1.0';
+const BUILD_TARGET = document.documentElement.dataset.build || 'cloudflare';
+const PREF_KEY = 'tsui-dot:prefs:v1.1.0';
+const WINDOW_NUDGE_STEP = 8;
+const MAX_SOURCE_SIDE = 1280;
+const MAX_LIVE_CAMERA_SIDE = 720;
+const LIVE_FRAME_INTERVAL = 140;
+const INTAKE_MIN = 100;
+const INTAKE_FLOOR_MAX = 220;
+const INTAKE_HARD_MAX = 1200;
+const INTAKE_STEP = 10;
+
+// ==== i18n ==================================================================
+const VALID_LANGS = ['ja', 'en'];
+const DEFAULT_LANG = 'ja';
+let currentLang = DEFAULT_LANG;
+
+const I18N_DICT = {
+  ja: {
+    'header.about': 'about',
+    'header.about.title': 'About',
+    'header.status.ready': 'ready',
+    'empty.state': '画像を開く / CAMERA',
+    'toolbar.open': '画像',
+    'toolbar.camera': 'CAMERA',
+    'toolbar.camera.stop': 'STOP',
+    'toolbar.freeze': 'FIX',
+    'toolbar.freeze.live': 'LIVE',
+    'toolbar.download': 'PNG',
+    'label.mode': 'MODE',
+    'label.mode.full': 'full',
+    'label.mode.window': 'window',
+    'label.cam': 'CAM',
+    'label.cam.back': 'back',
+    'label.cam.front': 'front',
+    'label.dot': 'DOT',
+    'label.res': 'RES',
+    'label.size': 'SIZE',
+    'label.glass': 'GLASS',
+    'label.pos': 'POS',
+    'label.palette': 'PALETTE',
+    'label.colors': 'COLORS',
+    'label.light': 'LIGHT',
+    'label.contrast': 'CONTRAST',
+    'label.sat': 'SAT',
+    'label.scale': 'SCALE',
+    'label.shiftX': 'SHIFT X',
+    'label.shiftY': 'SHIFT Y',
+    'aria.intakeRow': 'GLASS 取込量クイック調整',
+    'aria.posRow': '小窓位置',
+    'aria.posUp': '小窓を上へ',
+    'aria.posDown': '小窓を下へ',
+    'aria.posLeft': '小窓を左へ',
+    'aria.posRight': '小窓を右へ',
+    'aria.posCenter': '小窓を中央へ',
+    'aria.intakeMinusLarge': 'GLASS -50%',
+    'aria.intakeMinusSmall': 'GLASS -10%',
+    'aria.intakePlusSmall': 'GLASS +10%',
+    'aria.intakePlusLarge': 'GLASS +50%',
+    'aria.previewArea': 'ドット絵プレビュー',
+    'aria.outputCanvas': '変換後ドット絵',
+    'aria.controls': 'コントロール',
+    'switch.dither': 'dither',
+    'switch.edge': 'edge',
+    'switch.flip': 'flip',
+    'switch.square': 'square',
+    'switch.window': 'window',
+    'footer.localCanvas': 'local canvas only',
+    'footer.connectSrcNone': 'connect-src none',
+    'footer.thirdPartyNone': 'third-party none',
+    'status.imageOnly': '画像ファイル形式のみ対応',
+    'status.loading': '読み込み中: {name}',
+    'status.opened': '開きました: {name}',
+    'status.cameraUnsupported': 'このブラウザではカメラを使用できません',
+    'status.cameraRequesting': 'カメラ要求中',
+    'status.cameraStopped': 'カメラを停止しました',
+    'status.cameraLive': '{facing} カメラ ライブ',
+    'status.frameFixed': 'フレームを固定しました',
+    'status.rendered': '変換完了: {label}',
+    'status.windowRendered': '小窓変換完了: {label}',
+    'status.nothingToDownload': 'ダウンロードする画像がありません',
+    'status.pngExportFailed': 'PNG 出力に失敗しました',
+    'status.pngExported': 'PNG を出力しました',
+    'status.appReady': 'Tsui Dot {version} ready',
+    'meta.sample': 'sample',
+    'meta.cameraFrame': 'camera frame',
+    'meta.cameraLiveSuffix': 'camera live',
+    'meta.cameraFixed': 'camera fixed',
+    'meta.dotsFinal': '{lowW}x{lowH} dots / {finalW}x{finalH}px',
+    'meta.windowFinal': '{cells}x{cells} window / {finalW}x{finalH}px',
+    'meta.intakeMaxHint': 'max {max}%',
+    'modal.close': '閉じる',
+    'about.title': 'About Tsui Dot',
+    'about.intro': '<strong>Tsui Dot</strong> は、写真・イラスト・ローカルカメラ映像を 8bit 風の 2D ドット絵やガラス小窓風の小窓表示へ変換する、ブラウザ内完結の Tsui series ツールです。',
+    'about.privacy.title': 'PRIVACY',
+    'about.privacy.p1': '画像やカメラ映像は、本アプリ本体から外部送信されません。<code>connect-src \'none\'</code> により、<code>fetch</code> 等のネットワーク送信はブラウザレベルで禁止されます。DevTools の Network タブで確認いただけます。',
+    'about.privacy.p2': '画像データやカメラ映像は <code>localStorage</code> や <code>IndexedDB</code> に保存しません。保存されるのは DOT サイズやパレットなどの UI 設定のみです。',
+    'about.privacy.p3': '本アプリ本体には計測機能は一切含まれていません(上記の <code>connect-src \'none\'</code> により、ブラウザの CSP 機構で外部送信が禁止されるため)。',
+    'about.privacy.p4': '一方、作者プロフィールや Tsui series のランディングページ等の情報ページでは、訪問数の把握に Cloudflare Web Analytics を利用しています(Cookie なし / フィンガープリントなし / クロスサイトトラッキングなし)。',
+    'about.privacy.p5': 'なお、別途プラットフォーム側(配信元サーバや中継事業者等)で計測・記録されている可能性はあります。',
+    'about.camera.title': 'CAMERA',
+    'about.camera.body': 'カメラはユーザー操作時だけ要求され、背面優先・前面優先を切り替えられます。カメラ映像も外部へ送信されず、変換プレビューと PNG 出力のためにだけ使われます。',
+    'about.disclaimer.title': 'DISCLAIMER',
+    'about.disclaimer.body': '本ソフトウェアは現状有姿で提供され、動作の正確性・可用性について一切の保証はありません。ご利用は自己責任でお願いします。出力画像の保存・管理は利用者の責任で行ってください。',
+    'about.license.title': 'LICENSE (THIS APP)',
+    'about.license.copyright': 'Copyright (c) 2026 <a href="https://hajimetwi3.github.io/hajimetwi3/" target="_blank" rel="noopener noreferrer">Hajime Tsui</a>',
+    'about.thirdParty.title': 'THIRD-PARTY',
+    'about.thirdParty.body': 'なし。外部モジュール、CDN、解析タグは含みません。',
+    'about.related.title': 'RELATED',
+    'about.related.tsui': '本アプリは <a href="https://hajimetwi3.github.io/hajimetwi3/Tsui-series/" target="_blank" rel="noopener noreferrer">Tsui series</a>(静かな道具たち)の一つです。',
+    'about.related.github': 'GitHub: <a href="https://github.com/hajimetwi3/Tsui-dot" target="_blank" rel="noopener noreferrer">github.com/hajimetwi3/Tsui-dot</a>',
+    'lang.button.title': 'Switch language / 言語切替',
+    'lang.button.toEn': 'EN',
+    'lang.button.toJa': '日本語',
+    'lang.button.titleToEn': 'Switch to English',
+    'lang.button.titleToJa': '日本語に切替'
+  },
+  en: {
+    'header.about': 'about',
+    'header.about.title': 'About',
+    'header.status.ready': 'ready',
+    'empty.state': 'Open image / CAMERA',
+    'toolbar.open': 'Image',
+    'toolbar.camera': 'CAMERA',
+    'toolbar.camera.stop': 'STOP',
+    'toolbar.freeze': 'FIX',
+    'toolbar.freeze.live': 'LIVE',
+    'toolbar.download': 'PNG',
+    'label.mode': 'MODE',
+    'label.mode.full': 'full',
+    'label.mode.window': 'window',
+    'label.cam': 'CAM',
+    'label.cam.back': 'back',
+    'label.cam.front': 'front',
+    'label.dot': 'DOT',
+    'label.res': 'RES',
+    'label.size': 'SIZE',
+    'label.glass': 'GLASS',
+    'label.pos': 'POS',
+    'label.palette': 'PALETTE',
+    'label.colors': 'COLORS',
+    'label.light': 'LIGHT',
+    'label.contrast': 'CONTRAST',
+    'label.sat': 'SAT',
+    'label.scale': 'SCALE',
+    'label.shiftX': 'SHIFT X',
+    'label.shiftY': 'SHIFT Y',
+    'aria.intakeRow': 'GLASS intake quick adjust',
+    'aria.posRow': 'window position',
+    'aria.posUp': 'move window up',
+    'aria.posDown': 'move window down',
+    'aria.posLeft': 'move window left',
+    'aria.posRight': 'move window right',
+    'aria.posCenter': 'center window',
+    'aria.intakeMinusLarge': 'glass -50%',
+    'aria.intakeMinusSmall': 'glass -10%',
+    'aria.intakePlusSmall': 'glass +10%',
+    'aria.intakePlusLarge': 'glass +50%',
+    'aria.previewArea': 'pixel art preview',
+    'aria.outputCanvas': 'converted pixel art',
+    'aria.controls': 'controls',
+    'switch.dither': 'dither',
+    'switch.edge': 'edge',
+    'switch.flip': 'flip',
+    'switch.square': 'square',
+    'switch.window': 'window',
+    'footer.localCanvas': 'local canvas only',
+    'footer.connectSrcNone': 'connect-src none',
+    'footer.thirdPartyNone': 'third-party none',
+    'status.imageOnly': 'image file only',
+    'status.loading': 'loading {name}',
+    'status.opened': 'opened {name}',
+    'status.cameraUnsupported': 'camera unsupported in this browser',
+    'status.cameraRequesting': 'requesting camera',
+    'status.cameraStopped': 'camera stopped',
+    'status.cameraLive': '{facing} camera live',
+    'status.frameFixed': 'frame fixed',
+    'status.rendered': 'rendered {label}',
+    'status.windowRendered': 'window rendered {label}',
+    'status.nothingToDownload': 'nothing to download',
+    'status.pngExportFailed': 'png export failed',
+    'status.pngExported': 'png exported',
+    'status.appReady': 'Tsui Dot {version} ready',
+    'meta.sample': 'sample',
+    'meta.cameraFrame': 'camera frame',
+    'meta.cameraLiveSuffix': 'camera live',
+    'meta.cameraFixed': 'camera fixed',
+    'meta.dotsFinal': '{lowW}x{lowH} dots / {finalW}x{finalH}px',
+    'meta.windowFinal': '{cells}x{cells} window / {finalW}x{finalH}px',
+    'meta.intakeMaxHint': 'max {max}%',
+    'modal.close': 'Close',
+    'about.title': 'About Tsui Dot',
+    'about.intro': '<strong>Tsui Dot</strong> is a Tsui-series tool that converts photos, illustrations, and the local camera feed into 8-bit-style 2D pixel art or a glass-window-style framed view, entirely inside the browser.',
+    'about.privacy.title': 'PRIVACY',
+    'about.privacy.p1': 'Images and camera frames are not sent outside this app. <code>connect-src \'none\'</code> blocks <code>fetch</code> and other network calls at the browser level. You can verify this in the DevTools Network tab.',
+    'about.privacy.p2': 'Image data and camera frames are not saved to <code>localStorage</code> or <code>IndexedDB</code>. Only UI preferences (such as DOT size and palette) are stored.',
+    'about.privacy.p3': 'No analytics are included in the app itself (network egress is blocked at the CSP level via <code>connect-src \'none\'</code>).',
+    'about.privacy.p4': 'Information pages such as the author profile and the Tsui series landing page use Cloudflare Web Analytics for visit counting (no cookies, no fingerprinting, no cross-site tracking).',
+    'about.privacy.p5': 'Note: platform providers (hosts, CDNs, intermediaries) may still log requests on their side independently.',
+    'about.camera.title': 'CAMERA',
+    'about.camera.body': 'The camera is requested only when you start it, and you can switch between rear-preferred and front-preferred. Camera frames are never sent outside the device; they are used only for the on-screen preview and for PNG export.',
+    'about.disclaimer.title': 'DISCLAIMER',
+    'about.disclaimer.body': 'This software is provided as-is, without any warranty regarding correctness or availability. Use at your own risk. You are responsible for saving and managing exported images.',
+    'about.license.title': 'LICENSE (THIS APP)',
+    'about.license.copyright': 'Copyright (c) 2026 <a href="https://hajimetwi3.github.io/hajimetwi3/" target="_blank" rel="noopener noreferrer">Hajime Tsui</a>',
+    'about.thirdParty.title': 'THIRD-PARTY',
+    'about.thirdParty.body': 'None. No external modules, no CDN, no analytics tags.',
+    'about.related.title': 'RELATED',
+    'about.related.tsui': 'Part of the <a href="https://hajimetwi3.github.io/hajimetwi3/Tsui-series/" target="_blank" rel="noopener noreferrer">Tsui series</a> (a set of quiet tools).',
+    'about.related.github': 'GitHub: <a href="https://github.com/hajimetwi3/Tsui-dot" target="_blank" rel="noopener noreferrer">github.com/hajimetwi3/Tsui-dot</a>',
+    'lang.button.title': 'Switch language / 言語切替',
+    'lang.button.toEn': 'EN',
+    'lang.button.toJa': '日本語',
+    'lang.button.titleToEn': 'Switch to English',
+    'lang.button.titleToJa': '日本語に切替'
+  }
+};
+
+function detectInitialLang() {
+  try {
+    const nav = (navigator.language || navigator.userLanguage || 'ja').toLowerCase();
+    if (nav.startsWith('ja')) return 'ja';
+    return 'en';
+  } catch {
+    return 'ja';
+  }
+}
+
+function setLang(lang) {
+  if (!VALID_LANGS.includes(lang)) return false;
+  currentLang = lang;
+  return true;
+}
+
+function t(key, vars) {
+  const cur = I18N_DICT[currentLang];
+  let str = cur && Object.prototype.hasOwnProperty.call(cur, key) ? cur[key] : null;
+  if (str == null) {
+    const ja = I18N_DICT.ja;
+    str = ja && Object.prototype.hasOwnProperty.call(ja, key) ? ja[key] : key;
+  }
+  if (vars && typeof str === 'string') {
+    str = str.replace(/\{(\w+)\}/g, (m, k) => Object.prototype.hasOwnProperty.call(vars, k) ? vars[k] : m);
+  }
+  return str;
+}
+
+function renderI18n(root) {
+  const r = root || document;
+  r.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (key) el.textContent = t(key);
+  });
+  r.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    const spec = el.getAttribute('data-i18n-attr');
+    if (!spec) return;
+    for (const pair of spec.split('|')) {
+      const eq = pair.indexOf('=');
+      if (eq < 0) continue;
+      const attr = pair.slice(0, eq).trim();
+      const key = pair.slice(eq + 1).trim();
+      if (attr && key) el.setAttribute(attr, t(key));
+    }
+  });
+  r.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (key) el.innerHTML = t(key);
+  });
+  document.documentElement.setAttribute('lang', currentLang);
+}
+
+const BAYER_4 = [
+  [0, 8, 2, 10],
+  [12, 4, 14, 6],
+  [3, 11, 1, 9],
+  [15, 7, 13, 5]
+];
+const SRGB_TO_LINEAR = Array.from({ length: 256 }, (_, value) => {
+  const v = value / 255;
+  return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+});
+
+const els = {
+  status: document.getElementById('statusText'),
+  fileInput: document.getElementById('fileInput'),
+  btnOpen: document.getElementById('btnOpen'),
+  btnCamera: document.getElementById('btnCamera'),
+  btnFreeze: document.getElementById('btnFreeze'),
+  btnDownload: document.getElementById('btnDownload'),
+  btnAbout: document.getElementById('btnAbout'),
+  btnLang: document.getElementById('btnLang'),
+  btnCloseAbout: document.getElementById('btnCloseAbout'),
+  aboutModal: document.getElementById('aboutModal'),
+  outputCanvas: document.getElementById('outputCanvas'),
+  cameraVideo: document.getElementById('cameraVideo'),
+  dropZone: document.getElementById('dropZone'),
+  emptyState: document.getElementById('emptyState'),
+  sourceMeta: document.getElementById('sourceMeta'),
+  renderMeta: document.getElementById('renderMeta'),
+  renderMode: document.getElementById('renderMode'),
+  cameraFacing: document.getElementById('cameraFacing'),
+  cellSize: document.getElementById('cellSize'),
+  cellSizeValue: document.getElementById('cellSizeValue'),
+  windowCells: document.getElementById('windowCells'),
+  windowSize: document.getElementById('windowSize'),
+  windowSizeValue: document.getElementById('windowSizeValue'),
+  windowIntake: document.getElementById('windowIntake'),
+  windowIntakeValue: document.getElementById('windowIntakeValue'),
+  windowIntakeMax: document.getElementById('windowIntakeMax'),
+  intakeMinusLarge: document.getElementById('intakeMinusLarge'),
+  intakeMinusSmall: document.getElementById('intakeMinusSmall'),
+  intakePlusSmall: document.getElementById('intakePlusSmall'),
+  intakePlusLarge: document.getElementById('intakePlusLarge'),
+  windowUp: document.getElementById('windowUp'),
+  windowLeft: document.getElementById('windowLeft'),
+  windowCenter: document.getElementById('windowCenter'),
+  windowRight: document.getElementById('windowRight'),
+  windowDown: document.getElementById('windowDown'),
+  windowPositionValue: document.getElementById('windowPositionValue'),
+  paletteMode: document.getElementById('paletteMode'),
+  colorLevels: document.getElementById('colorLevels'),
+  brightness: document.getElementById('brightness'),
+  brightnessValue: document.getElementById('brightnessValue'),
+  contrast: document.getElementById('contrast'),
+  contrastValue: document.getElementById('contrastValue'),
+  saturation: document.getElementById('saturation'),
+  saturationValue: document.getElementById('saturationValue'),
+  exportScale: document.getElementById('exportScale'),
+  shiftX: document.getElementById('shiftX'),
+  shiftXValue: document.getElementById('shiftXValue'),
+  shiftY: document.getElementById('shiftY'),
+  shiftYValue: document.getElementById('shiftYValue'),
+  ditherToggle: document.getElementById('ditherToggle'),
+  edgeToggle: document.getElementById('edgeToggle'),
+  flipToggle: document.getElementById('flipToggle'),
+  cropToggle: document.getElementById('cropToggle'),
+  scanlineToggle: document.getElementById('scanlineToggle'),
+  windowOnly: document.querySelectorAll('.window-only'),
+  fullOnly: document.querySelectorAll('.full-only')
+};
+
+const outCtx = els.outputCanvas.getContext('2d', { alpha: true });
+const sourceCanvas = document.createElement('canvas');
+const sourceCtx = sourceCanvas.getContext('2d', { alpha: true, willReadFrequently: true });
+const lowCanvas = document.createElement('canvas');
+const lowCtx = lowCanvas.getContext('2d', { alpha: true, willReadFrequently: true });
+const pixelCanvas = document.createElement('canvas');
+const pixelCtx = pixelCanvas.getContext('2d', { alpha: true, willReadFrequently: true });
+
+let prefs = loadPrefs();
+let sourceBitmap = null;
+let sourceKind = 'sample';
+let sourceLabelState = { kind: 'sample' };
+let stream = null;
+let live = false;
+let rafId = 0;
+let lastLiveDraw = 0;
+
+function getSourceLabel() {
+  const s = sourceLabelState;
+  switch (s.kind) {
+    case 'file': return s.name || '';
+    case 'cameraLive': return `${t('label.cam.' + (s.facing === 'user' ? 'front' : 'back'))} ${t('meta.cameraLiveSuffix')}`;
+    case 'cameraFrame': return t('meta.cameraFrame');
+    case 'cameraFixed': return t('meta.cameraFixed');
+    case 'sample':
+    default: return t('meta.sample');
+  }
+}
+
+function loadPrefs() {
+  const defaults = {
+    renderMode: 'full',
+    cellSize: 13,
+    windowCells: 16,
+    windowSize: 34,
+    windowIntake: 145,
+    cameraFacing: 'environment',
+    paletteMode: 'glassV2',
+    colorLevels: 64,
+    brightness: 3,
+    contrast: 8,
+    saturation: 12,
+    exportScale: 4,
+    shiftX: 0,
+    shiftY: 0,
+    dither: false,
+    edge: false,
+    flip: false,
+    crop: false,
+    scanlines: true,
+    lang: detectInitialLang()
+  };
+  try {
+    const saved = JSON.parse(localStorage.getItem(PREF_KEY) || '{}');
+    return normalizePrefs({ ...defaults, ...saved });
+  } catch {
+    return defaults;
+  }
+}
+
+function normalizePrefs(next) {
+  const prefsMap = { ...next };
+  if (!['glassV2', 'glass', 'soft'].includes(prefsMap.paletteMode)) prefsMap.paletteMode = 'glassV2';
+  if (!['full', 'window'].includes(prefsMap.renderMode)) prefsMap.renderMode = 'full';
+  if (!['environment', 'user'].includes(prefsMap.cameraFacing)) prefsMap.cameraFacing = 'environment';
+  if (!VALID_LANGS.includes(prefsMap.lang)) prefsMap.lang = detectInitialLang();
+  return prefsMap;
+}
+
+function computeIntakeMax() {
+  if (!sourceCanvas.width || !sourceCanvas.height) return INTAKE_FLOOR_MAX;
+  const scale = clampInt(prefs.exportScale || 4, 1, 4);
+  const finalW = Math.max(1, sourceCanvas.width * scale);
+  const finalH = Math.max(1, sourceCanvas.height * scale);
+  const minSide = Math.min(finalW, finalH);
+  const sizeRatio = clampInt(prefs.windowSize || 34, 18, 76) / 100;
+  const size = Math.max(48, Math.round(minSide * sizeRatio));
+  const inset = Math.max(4, Math.round(size * 0.075));
+  const innerSize = Math.max(1, size - inset * 2);
+  const sourceWindowShortSide = Math.max(1, Math.round(innerSize / scale));
+  const sourceShortSide = Math.min(sourceCanvas.width, sourceCanvas.height);
+  const requiredRatio = sourceShortSide / sourceWindowShortSide;
+  const requiredPercent = Math.ceil((requiredRatio * 100) / INTAKE_STEP) * INTAKE_STEP;
+  return Math.min(INTAKE_HARD_MAX, Math.max(INTAKE_FLOOR_MAX, requiredPercent));
+}
+
+function applyIntakeMax() {
+  const maxValue = computeIntakeMax();
+  els.windowIntake.max = String(maxValue);
+  if (Number(els.windowIntake.value) > maxValue) {
+    els.windowIntake.value = String(maxValue);
+    prefs.windowIntake = maxValue;
+    savePrefs();
+  }
+  updateControlLabels();
+  return maxValue;
+}
+
+function savePrefs() {
+  try {
+    localStorage.setItem(PREF_KEY, JSON.stringify(prefs));
+  } catch {}
+}
+
+function syncControls() {
+  els.renderMode.value = prefs.renderMode;
+  els.cameraFacing.value = prefs.cameraFacing;
+  els.cellSize.value = String(prefs.cellSize);
+  els.windowCells.value = String(prefs.windowCells);
+  els.windowSize.value = String(prefs.windowSize);
+  els.windowIntake.value = String(prefs.windowIntake);
+  els.paletteMode.value = prefs.paletteMode;
+  els.colorLevels.value = String(prefs.colorLevels);
+  els.brightness.value = String(prefs.brightness);
+  els.contrast.value = String(prefs.contrast);
+  els.saturation.value = String(prefs.saturation);
+  els.exportScale.value = String(prefs.exportScale);
+  els.shiftX.value = String(prefs.shiftX);
+  els.shiftY.value = String(prefs.shiftY);
+  els.ditherToggle.checked = !!prefs.dither;
+  els.edgeToggle.checked = !!prefs.edge;
+  els.flipToggle.checked = !!prefs.flip;
+  els.cropToggle.checked = !!prefs.crop;
+  els.scanlineToggle.checked = !!prefs.scanlines;
+  updateControlLabels();
+}
+
+function updateControlLabels() {
+  els.cellSizeValue.value = `${prefs.cellSize}px`;
+  els.windowSizeValue.value = `${prefs.windowSize}%`;
+  const intakeMaxLabel = Number(els.windowIntake.max) || INTAKE_FLOOR_MAX;
+  els.windowIntakeValue.value = `${prefs.windowIntake}%`;
+  setElementText(els.windowIntakeMax, t('meta.intakeMaxHint', { max: intakeMaxLabel }));
+  els.brightnessValue.value = signed(prefs.brightness);
+  els.contrastValue.value = signed(prefs.contrast);
+  els.saturationValue.value = signed(prefs.saturation);
+  els.shiftXValue.value = signed(prefs.shiftX);
+  els.shiftYValue.value = signed(prefs.shiftY);
+  els.windowPositionValue.value = `${signed(prefs.shiftX)},${signed(prefs.shiftY)}`;
+  document.body.classList.toggle('scanlines', !!prefs.scanlines);
+  document.body.classList.toggle('window-mode', prefs.renderMode === 'window');
+  els.windowOnly.forEach((row) => row.classList.toggle('is-hidden', prefs.renderMode !== 'window'));
+  els.fullOnly.forEach((row) => row.classList.toggle('is-hidden', prefs.renderMode === 'window'));
+}
+
+function signed(value) {
+  const n = Number(value) || 0;
+  return n > 0 ? `+${n}` : String(n);
+}
+
+function setStatus(text, tone) {
+  setElementText(els.status, text);
+  els.status.dataset.tone = tone || '';
+}
+
+function setElementText(element, text) {
+  if (element.textContent !== text) element.textContent = text;
+}
+
+function bindEvents() {
+  els.btnOpen.addEventListener('click', () => els.fileInput.click());
+  els.fileInput.addEventListener('change', () => {
+    const file = els.fileInput.files && els.fileInput.files[0];
+    if (file) loadImageFile(file);
+    els.fileInput.value = '';
+  });
+
+  els.btnCamera.addEventListener('click', () => {
+    if (stream) stopCamera();
+    else startCamera();
+  });
+  els.btnFreeze.addEventListener('click', toggleFreeze);
+  els.btnDownload.addEventListener('click', downloadPng);
+  els.btnAbout.addEventListener('click', openAbout);
+  els.btnLang.addEventListener('click', () => {
+    setLangPref(prefs.lang === 'ja' ? 'en' : 'ja');
+  });
+  els.btnCloseAbout.addEventListener('click', closeAbout);
+  els.aboutModal.addEventListener('click', (event) => {
+    if (event.target === els.aboutModal) closeAbout();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && els.aboutModal.classList.contains('open')) closeAbout();
+  });
+
+  const liveControls = [
+    els.cellSize, els.windowSize, els.windowIntake, els.brightness, els.contrast, els.saturation, els.shiftX, els.shiftY
+  ];
+  liveControls.forEach((control) => control.addEventListener('input', readControlsAndRender));
+  [
+    els.renderMode, els.windowCells, els.paletteMode, els.colorLevels, els.exportScale,
+    els.ditherToggle, els.edgeToggle, els.cropToggle, els.scanlineToggle
+  ].forEach((control) => control.addEventListener('change', readControlsAndRender));
+
+  els.cameraFacing.addEventListener('change', () => {
+    const shouldRestart = !!stream;
+    readControls();
+    if (shouldRestart) restartCamera();
+  });
+
+  els.windowUp.addEventListener('click', () => nudgeWindow(0, -WINDOW_NUDGE_STEP));
+  els.windowLeft.addEventListener('click', () => nudgeWindow(-WINDOW_NUDGE_STEP, 0));
+  els.windowCenter.addEventListener('click', () => centerWindow());
+  els.windowRight.addEventListener('click', () => nudgeWindow(WINDOW_NUDGE_STEP, 0));
+  els.windowDown.addEventListener('click', () => nudgeWindow(0, WINDOW_NUDGE_STEP));
+
+  els.intakeMinusLarge.addEventListener('click', () => adjustIntake(-50));
+  els.intakeMinusSmall.addEventListener('click', () => adjustIntake(-10));
+  els.intakePlusSmall.addEventListener('click', () => adjustIntake(10));
+  els.intakePlusLarge.addEventListener('click', () => adjustIntake(50));
+
+  els.flipToggle.addEventListener('change', () => {
+    readControls();
+    redrawCurrentSource();
+  });
+
+  els.dropZone.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    els.dropZone.classList.add('dragging');
+  });
+  els.dropZone.addEventListener('dragleave', () => {
+    els.dropZone.classList.remove('dragging');
+  });
+  els.dropZone.addEventListener('drop', (event) => {
+    event.preventDefault();
+    els.dropZone.classList.remove('dragging');
+    const file = Array.from(event.dataTransfer.files || []).find((item) => item.type.startsWith('image/'));
+    if (file) loadImageFile(file);
+  });
+
+  window.addEventListener('beforeunload', () => {
+    if (stream) stopCameraTracks();
+  });
+}
+
+function readControls() {
+  prefs = {
+    renderMode: els.renderMode.value,
+    cameraFacing: els.cameraFacing.value,
+    cellSize: Number(els.cellSize.value),
+    windowCells: Number(els.windowCells.value),
+    windowSize: Number(els.windowSize.value),
+    windowIntake: Number(els.windowIntake.value),
+    paletteMode: els.paletteMode.value,
+    colorLevels: Number(els.colorLevels.value),
+    brightness: Number(els.brightness.value),
+    contrast: Number(els.contrast.value),
+    saturation: Number(els.saturation.value),
+    exportScale: Number(els.exportScale.value),
+    shiftX: Number(els.shiftX.value),
+    shiftY: Number(els.shiftY.value),
+    dither: els.ditherToggle.checked,
+    edge: els.edgeToggle.checked,
+    flip: els.flipToggle.checked,
+    crop: els.cropToggle.checked,
+    scanlines: els.scanlineToggle.checked
+  };
+  const intakeMax = computeIntakeMax();
+  els.windowIntake.max = String(intakeMax);
+  if (prefs.windowIntake > intakeMax) {
+    prefs.windowIntake = intakeMax;
+    els.windowIntake.value = String(intakeMax);
+  }
+  savePrefs();
+  updateControlLabels();
+}
+
+function readControlsAndRender() {
+  readControls();
+  renderPixelArt();
+}
+
+function nudgeWindow(dx, dy) {
+  readControls();
+  prefs.shiftX = Math.round(clampNumber(prefs.shiftX + dx, -45, 45));
+  prefs.shiftY = Math.round(clampNumber(prefs.shiftY + dy, -45, 45));
+  syncControls();
+  savePrefs();
+  renderPixelArt();
+}
+
+function centerWindow() {
+  readControls();
+  prefs.shiftX = 0;
+  prefs.shiftY = 0;
+  syncControls();
+  savePrefs();
+  renderPixelArt();
+}
+
+function adjustIntake(delta) {
+  readControls();
+  const maxValue = computeIntakeMax();
+  const next = Math.round(clampNumber(prefs.windowIntake + delta, INTAKE_MIN, maxValue));
+  if (next === prefs.windowIntake) return;
+  prefs.windowIntake = next;
+  els.windowIntake.value = String(next);
+  savePrefs();
+  updateControlLabels();
+  renderPixelArt();
+}
+
+function fitSize(width, height, maxSide) {
+  const scale = Math.min(1, maxSide / Math.max(width, height));
+  return {
+    width: Math.max(1, Math.round(width * scale)),
+    height: Math.max(1, Math.round(height * scale))
+  };
+}
+
+async function loadImageFile(file) {
+  if (!file.type.startsWith('image/')) {
+    setStatus(t('status.imageOnly'), 'warn');
+    return;
+  }
+  try {
+    setStatus(t('status.loading', { name: file.name }));
+    const bitmap = await createImageBitmap(file);
+    if (sourceBitmap && sourceBitmap.close) sourceBitmap.close();
+    sourceBitmap = bitmap;
+    sourceKind = 'file';
+    sourceLabelState = { kind: 'file', name: file.name };
+    drawBitmapToSource(bitmap);
+    renderPixelArt();
+    setStatus(t('status.opened', { name: file.name }), 'ok');
+  } catch (error) {
+    setStatus(error && error.message ? error.message : String(error), 'error');
+  }
+}
+
+function drawBitmapToSource(bitmap) {
+  const size = fitSize(bitmap.width, bitmap.height, MAX_SOURCE_SIDE);
+  sourceCanvas.width = size.width;
+  sourceCanvas.height = size.height;
+  sourceCtx.save();
+  sourceCtx.clearRect(0, 0, size.width, size.height);
+  sourceCtx.imageSmoothingEnabled = true;
+  sourceCtx.imageSmoothingQuality = 'high';
+  if (prefs.flip) {
+    sourceCtx.translate(size.width, 0);
+    sourceCtx.scale(-1, 1);
+  }
+  sourceCtx.drawImage(bitmap, 0, 0, size.width, size.height);
+  sourceCtx.restore();
+  updateSourceMeta();
+}
+
+async function startCamera() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    setStatus(t('status.cameraUnsupported'), 'warn');
+    return;
+  }
+  try {
+    setStatus(t('status.cameraRequesting'));
+    const facingMode = prefs.cameraFacing === 'user' ? 'user' : 'environment';
+    stream = await navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: {
+        facingMode: { ideal: facingMode },
+        width: { ideal: 1280 },
+        height: { ideal: 720 }
+      }
+    });
+    els.cameraVideo.srcObject = stream;
+    await els.cameraVideo.play();
+    sourceKind = 'camera';
+    sourceLabelState = { kind: 'cameraLive', facing: prefs.cameraFacing };
+    updateSourceMeta();
+    live = true;
+    els.btnCamera.textContent = t('toolbar.camera.stop');
+    els.btnFreeze.textContent = t('toolbar.freeze');
+    els.btnFreeze.disabled = false;
+    lastLiveDraw = 0;
+    liveLoop();
+    setStatus(t('status.cameraLive', { facing: t('label.cam.' + (prefs.cameraFacing === 'user' ? 'front' : 'back')) }), 'ok');
+  } catch (error) {
+    stream = null;
+    setStatus(error && error.message ? error.message : String(error), 'error');
+  }
+}
+
+async function restartCamera() {
+  stopCameraTracks();
+  stream = null;
+  live = false;
+  cancelAnimationFrame(rafId);
+  els.btnCamera.textContent = t('toolbar.camera');
+  els.btnFreeze.textContent = t('toolbar.freeze');
+  els.btnFreeze.disabled = true;
+  await startCamera();
+}
+
+function stopCamera() {
+  stopCameraTracks();
+  stream = null;
+  live = false;
+  cancelAnimationFrame(rafId);
+  els.btnCamera.textContent = t('toolbar.camera');
+  els.btnFreeze.textContent = t('toolbar.freeze');
+  els.btnFreeze.disabled = true;
+  sourceLabelState = sourceCanvas.width ? { kind: 'cameraFrame' } : { kind: 'sample' };
+  updateSourceMeta();
+  setStatus(t('status.cameraStopped'));
+}
+
+function stopCameraTracks() {
+  if (!stream) return;
+  stream.getTracks().forEach((track) => track.stop());
+  els.cameraVideo.srcObject = null;
+}
+
+function toggleFreeze() {
+  if (!stream) return;
+  if (live) {
+    drawVideoToSource();
+    live = false;
+    els.btnFreeze.textContent = t('toolbar.freeze.live');
+    sourceLabelState = { kind: 'cameraFixed' };
+    renderPixelArt();
+    setStatus(t('status.frameFixed'));
+  } else {
+    live = true;
+    els.btnFreeze.textContent = t('toolbar.freeze');
+    sourceLabelState = { kind: 'cameraLive', facing: prefs.cameraFacing };
+    lastLiveDraw = 0;
+    liveLoop();
+    setStatus(t('status.cameraLive', { facing: t('label.cam.' + (prefs.cameraFacing === 'user' ? 'front' : 'back')) }), 'ok');
+  }
+  updateSourceMeta();
+}
+
+function cameraFacingLabel() {
+  return prefs.cameraFacing === 'user' ? t('label.cam.front') : t('label.cam.back');
+}
+
+function liveLoop(timestamp = 0) {
+  if (!live || !stream) return;
+  if (!lastLiveDraw || timestamp - lastLiveDraw > LIVE_FRAME_INTERVAL) {
+    drawVideoToSource(MAX_LIVE_CAMERA_SIDE);
+    renderPixelArt(true);
+    lastLiveDraw = timestamp;
+  }
+  rafId = requestAnimationFrame(liveLoop);
+}
+
+function drawVideoToSource(maxSide = MAX_SOURCE_SIDE) {
+  const video = els.cameraVideo;
+  if (!video.videoWidth || !video.videoHeight) return;
+  const size = fitSize(video.videoWidth, video.videoHeight, maxSide);
+  const changedSize = sourceCanvas.width !== size.width || sourceCanvas.height !== size.height;
+  sourceCanvas.width = size.width;
+  sourceCanvas.height = size.height;
+  sourceCtx.save();
+  sourceCtx.clearRect(0, 0, size.width, size.height);
+  sourceCtx.imageSmoothingEnabled = true;
+  if (prefs.flip) {
+    sourceCtx.translate(size.width, 0);
+    sourceCtx.scale(-1, 1);
+  }
+  sourceCtx.drawImage(video, 0, 0, size.width, size.height);
+  sourceCtx.restore();
+  if (changedSize) updateSourceMeta();
+}
+
+function redrawCurrentSource() {
+  if (sourceKind === 'file' && sourceBitmap) {
+    drawBitmapToSource(sourceBitmap);
+  } else if (sourceKind === 'camera' && stream) {
+    drawVideoToSource();
+  } else {
+    drawSample();
+  }
+  renderPixelArt();
+}
+
+function drawSample() {
+  sourceKind = 'sample';
+  sourceLabelState = { kind: 'sample' };
+  sourceCanvas.width = 960;
+  sourceCanvas.height = 640;
+  const ctx = sourceCtx;
+  const w = sourceCanvas.width;
+  const h = sourceCanvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  const bg = ctx.createLinearGradient(0, 0, w, h);
+  bg.addColorStop(0, '#182026');
+  bg.addColorStop(0.55, '#14151d');
+  bg.addColorStop(1, '#24202a');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.fillStyle = '#24323a';
+  for (let y = 0; y < h; y += 48) {
+    for (let x = (y / 48) % 2 ? 0 : 24; x < w; x += 48) {
+      ctx.fillRect(x, y, 16, 16);
+    }
+  }
+
+  ctx.fillStyle = '#182b32';
+  ctx.fillRect(80, 84, 800, 456);
+  ctx.strokeStyle = '#74ead8';
+  ctx.lineWidth = 10;
+  ctx.strokeRect(80, 84, 800, 456);
+  ctx.strokeStyle = 'rgba(237, 242, 245, 0.18)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(104, 108, 752, 408);
+
+  ctx.fillStyle = 'rgba(113, 234, 214, 0.22)';
+  ctx.fillRect(112, 126, 232, 20);
+  ctx.fillRect(620, 482, 206, 18);
+
+  updateSourceMeta();
+}
+
+function renderPixelArt(isLiveFrame) {
+  if (!sourceCanvas.width || !sourceCanvas.height) return;
+  if (prefs.renderMode === 'window') {
+    renderGlassWindow(isLiveFrame);
+    return;
+  }
+  const cell = clampInt(prefs.cellSize, 6, 64);
+  const scale = clampInt(prefs.exportScale, 1, 4);
+  const rect = getRenderRect();
+  const lowW = Math.max(1, Math.round(rect.width / cell));
+  const lowH = Math.max(1, Math.round(rect.height / cell));
+
+  lowCanvas.width = lowW;
+  lowCanvas.height = lowH;
+  const image = sampleSourceCells(lowW, lowH, rect);
+  processImageData(image, lowW, lowH);
+
+  pixelCanvas.width = lowW;
+  pixelCanvas.height = lowH;
+  pixelCtx.putImageData(image, 0, 0);
+
+  const finalW = lowW * cell * scale;
+  const finalH = lowH * cell * scale;
+  els.outputCanvas.width = finalW;
+  els.outputCanvas.height = finalH;
+  outCtx.clearRect(0, 0, finalW, finalH);
+  outCtx.imageSmoothingEnabled = false;
+  outCtx.drawImage(pixelCanvas, 0, 0, finalW, finalH);
+  if (prefs.paletteMode === 'glassV2') {
+    softenGlassV2(finalW, finalH);
+  }
+  if (prefs.scanlines && (prefs.paletteMode === 'soft' || prefs.paletteMode === 'glass' || prefs.paletteMode === 'glassV2')) {
+    drawGlassFacets(finalW, finalH, cell * scale);
+    if (prefs.paletteMode === 'glassV2') drawGlassV2Case(finalW, finalH, cell * scale);
+    else drawGlassCase(finalW, finalH, cell * scale);
+  }
+
+  els.emptyState.classList.add('hidden');
+  setElementText(els.renderMeta, t('meta.dotsFinal', { lowW, lowH, finalW, finalH }));
+  if (!isLiveFrame) setStatus(t('status.rendered', { label: getSourceLabel() }), 'ok');
+}
+
+function renderGlassWindow(isLiveFrame) {
+  const scale = clampInt(prefs.exportScale, 1, 4);
+  const finalW = Math.max(1, sourceCanvas.width * scale);
+  const finalH = Math.max(1, sourceCanvas.height * scale);
+  const cells = Number(prefs.windowCells) === 10 ? 10 : 16;
+  const box = getWindowGeometry(finalW, finalH, scale);
+  const sampleRect = getWindowSampleRect(box.sourceWindow);
+
+  lowCanvas.width = cells;
+  lowCanvas.height = cells;
+  const image = sampleSourceCells(cells, cells, sampleRect);
+  processImageData(image, cells, cells);
+
+  pixelCanvas.width = cells;
+  pixelCanvas.height = cells;
+  pixelCtx.putImageData(image, 0, 0);
+
+  els.outputCanvas.width = finalW;
+  els.outputCanvas.height = finalH;
+  outCtx.clearRect(0, 0, finalW, finalH);
+  outCtx.save();
+  outCtx.imageSmoothingEnabled = true;
+  outCtx.filter = 'saturate(1.02) contrast(1.01)';
+  outCtx.drawImage(sourceCanvas, 0, 0, finalW, finalH);
+  outCtx.restore();
+
+  drawGlassWindow(box, sampleRect, cells);
+
+  els.emptyState.classList.add('hidden');
+  setElementText(els.renderMeta, t('meta.windowFinal', { cells, finalW, finalH }));
+  if (!isLiveFrame) setStatus(t('status.windowRendered', { label: getSourceLabel() }), 'ok');
+}
+
+function getWindowGeometry(finalW, finalH, scale) {
+  const minSide = Math.min(finalW, finalH);
+  const sizeRatio = clampInt(prefs.windowSize, 18, 76) / 100;
+  const size = Math.max(48, Math.round(minSide * sizeRatio));
+  const maxX = Math.max(0, finalW - size);
+  const maxY = Math.max(0, finalH - size);
+  const x = Math.round(clampNumber((finalW - size) / 2 + maxX * ((Number(prefs.shiftX) || 0) / 100), 0, maxX));
+  const y = Math.round(clampNumber((finalH - size) / 2 + maxY * ((Number(prefs.shiftY) || 0) / 100), 0, maxY));
+  const inset = Math.max(4, Math.round(size * 0.075));
+  const innerSize = Math.max(1, size - inset * 2);
+  const sourceWindow = fitRectToBounds({
+    x: Math.round((x + inset) / scale),
+    y: Math.round((y + inset) / scale),
+    width: Math.max(1, Math.round(innerSize / scale)),
+    height: Math.max(1, Math.round(innerSize / scale))
+  }, sourceCanvas.width, sourceCanvas.height);
+
+  return {
+    x,
+    y,
+    size,
+    inset,
+    innerX: x + inset,
+    innerY: y + inset,
+    innerSize,
+    sourceWindow
+  };
+}
+
+function getWindowSampleRect(sourceWindow) {
+  const intake = clampInt(prefs.windowIntake, INTAKE_MIN, INTAKE_HARD_MAX) / 100;
+  const centerX = sourceWindow.x + sourceWindow.width / 2;
+  const centerY = sourceWindow.y + sourceWindow.height / 2;
+  const size = Math.max(1, Math.round(Math.max(sourceWindow.width, sourceWindow.height) * intake));
+  return fitRectToBounds({
+    x: Math.round(centerX - size / 2),
+    y: Math.round(centerY - size / 2),
+    width: size,
+    height: size
+  }, sourceCanvas.width, sourceCanvas.height);
+}
+
+function fitRectToBounds(rect, maxW, maxH) {
+  const width = Math.max(1, Math.min(maxW, Math.round(rect.width)));
+  const height = Math.max(1, Math.min(maxH, Math.round(rect.height)));
+  return {
+    x: Math.round(clampNumber(rect.x, 0, Math.max(0, maxW - width))),
+    y: Math.round(clampNumber(rect.y, 0, Math.max(0, maxH - height))),
+    width,
+    height
+  };
+}
+
+function drawGlassWindow(box, sampleRect, cells) {
+  const { x, y, size, innerX, innerY, innerSize } = box;
+  const pitch = innerSize / cells;
+
+  outCtx.save();
+  outCtx.shadowColor = 'rgba(0, 0, 0, 0.36)';
+  outCtx.shadowBlur = Math.max(12, Math.round(size * 0.08));
+  outCtx.shadowOffsetY = Math.max(4, Math.round(size * 0.035));
+  outCtx.fillStyle = 'rgba(237, 242, 245, 0.12)';
+  outCtx.fillRect(x, y, size, size);
+  outCtx.restore();
+
+  outCtx.save();
+  outCtx.beginPath();
+  outCtx.rect(innerX, innerY, innerSize, innerSize);
+  outCtx.clip();
+  outCtx.imageSmoothingEnabled = true;
+  outCtx.filter = `blur(${Math.max(0.4, size * 0.003)}px) saturate(1.08) contrast(1.04)`;
+  outCtx.globalAlpha = 0.48;
+  outCtx.drawImage(
+    sourceCanvas,
+    sampleRect.x, sampleRect.y, sampleRect.width, sampleRect.height,
+    innerX, innerY, innerSize, innerSize
+  );
+  outCtx.filter = 'none';
+  outCtx.globalAlpha = 0.96;
+  outCtx.imageSmoothingEnabled = false;
+  outCtx.drawImage(pixelCanvas, 0, 0, cells, cells, innerX, innerY, innerSize, innerSize);
+  outCtx.restore();
+
+  softenGlassWindow(innerX, innerY, innerSize, cells);
+  drawWindowFacets(innerX, innerY, innerSize, pitch);
+  drawWindowCase(box, pitch);
+}
+
+function softenGlassWindow(x, y, size, cells) {
+  outCtx.save();
+  outCtx.globalAlpha = 0.18;
+  outCtx.filter = 'blur(0.7px)';
+  outCtx.imageSmoothingEnabled = false;
+  outCtx.drawImage(pixelCanvas, 0, 0, cells, cells, x, y, size, size);
+  outCtx.restore();
+}
+
+function drawWindowFacets(x, y, size, pitch) {
+  outCtx.save();
+  outCtx.lineWidth = 1;
+  outCtx.strokeStyle = 'rgba(0, 0, 0, 0.075)';
+  outCtx.beginPath();
+  for (let gx = x + pitch; gx < x + size - 0.5; gx += pitch) {
+    outCtx.moveTo(gx + 0.5, y);
+    outCtx.lineTo(gx + 0.5, y + size);
+  }
+  for (let gy = y + pitch; gy < y + size - 0.5; gy += pitch) {
+    outCtx.moveTo(x, gy + 0.5);
+    outCtx.lineTo(x + size, gy + 0.5);
+  }
+  outCtx.stroke();
+
+  outCtx.globalAlpha = 0.26;
+  for (let cy = 0; cy < size; cy += pitch) {
+    for (let cx = 0; cx < size; cx += pitch) {
+      const w = Math.min(pitch, size - cx);
+      const h = Math.min(pitch, size - cy);
+      const inset = Math.max(1, Math.round(pitch * 0.08));
+      outCtx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
+      outCtx.beginPath();
+      outCtx.moveTo(x + cx + inset, y + cy + inset);
+      outCtx.lineTo(x + cx + w - inset, y + cy + inset);
+      outCtx.moveTo(x + cx + inset, y + cy + inset);
+      outCtx.lineTo(x + cx + inset, y + cy + h - inset);
+      outCtx.stroke();
+    }
+  }
+  outCtx.restore();
+}
+
+function drawWindowCase(box, pitch) {
+  const { x, y, size, inset, innerX, innerY, innerSize } = box;
+  const edge = Math.max(3, Math.round(size * 0.038));
+
+  outCtx.save();
+  outCtx.globalCompositeOperation = 'source-over';
+
+  const edgeGlass = outCtx.createLinearGradient(x, y, x + size, y);
+  edgeGlass.addColorStop(0, 'rgba(255, 255, 255, 0.72)');
+  edgeGlass.addColorStop(0.08, 'rgba(255, 255, 255, 0.18)');
+  edgeGlass.addColorStop(0.48, 'rgba(255, 255, 255, 0.02)');
+  edgeGlass.addColorStop(0.92, 'rgba(255, 255, 255, 0.16)');
+  edgeGlass.addColorStop(1, 'rgba(255, 255, 255, 0.68)');
+  outCtx.fillStyle = edgeGlass;
+  outCtx.beginPath();
+  outCtx.rect(x, y, size, size);
+  outCtx.rect(innerX, innerY, innerSize, innerSize);
+  outCtx.fill('evenodd');
+
+  const topSheen = outCtx.createLinearGradient(x, y, x, y + Math.max(1, size * 0.22));
+  topSheen.addColorStop(0, 'rgba(255, 255, 255, 0.42)');
+  topSheen.addColorStop(0.42, 'rgba(255, 255, 255, 0.12)');
+  topSheen.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  outCtx.fillStyle = topSheen;
+  outCtx.fillRect(x, y, size, Math.max(1, size * 0.22));
+
+  const sideShade = outCtx.createLinearGradient(x, y, x + size, y);
+  sideShade.addColorStop(0, 'rgba(8, 10, 13, 0.30)');
+  sideShade.addColorStop(0.16, 'rgba(8, 10, 13, 0)');
+  sideShade.addColorStop(0.84, 'rgba(8, 10, 13, 0)');
+  sideShade.addColorStop(1, 'rgba(8, 10, 13, 0.34)');
+  outCtx.fillStyle = sideShade;
+  outCtx.fillRect(x, y, size, size);
+
+  const bottomGlow = outCtx.createLinearGradient(x, y + size * 0.74, x, y + size);
+  bottomGlow.addColorStop(0, 'rgba(255, 255, 255, 0)');
+  bottomGlow.addColorStop(0.72, 'rgba(255, 255, 255, 0.20)');
+  bottomGlow.addColorStop(1, 'rgba(255, 255, 255, 0.08)');
+  outCtx.fillStyle = bottomGlow;
+  outCtx.fillRect(x, y + size * 0.74, size, size * 0.26);
+
+  outCtx.strokeStyle = 'rgba(255, 255, 255, 0.70)';
+  outCtx.lineWidth = Math.max(1, Math.round(edge * 0.75));
+  outCtx.strokeRect(x + edge * 0.5, y + edge * 0.5, size - edge, size - edge);
+
+  outCtx.strokeStyle = 'rgba(15, 18, 22, 0.42)';
+  outCtx.lineWidth = Math.max(1, Math.round(edge * 0.45));
+  outCtx.strokeRect(innerX - edge * 0.28, innerY - edge * 0.28, innerSize + edge * 0.56, innerSize + edge * 0.56);
+
+  outCtx.strokeStyle = 'rgba(255, 255, 255, 0.46)';
+  outCtx.lineWidth = Math.max(1, Math.round(pitch * 0.10));
+  outCtx.beginPath();
+  outCtx.moveTo(x + inset * 0.9, y + inset * 0.62);
+  outCtx.lineTo(x + size - inset * 0.9, y + inset * 0.62);
+  outCtx.stroke();
+
+  outCtx.restore();
+}
+
+function getRenderRect() {
+  const w = sourceCanvas.width;
+  const h = sourceCanvas.height;
+  if (!prefs.crop) return { x: 0, y: 0, width: w, height: h };
+  const size = Math.min(w, h);
+  const maxX = Math.max(0, w - size);
+  const maxY = Math.max(0, h - size);
+  const shiftX = (Number(prefs.shiftX) || 0) / 100;
+  const shiftY = (Number(prefs.shiftY) || 0) / 100;
+  return {
+    x: Math.round(Math.max(0, Math.min(maxX, (w - size) / 2 + maxX * shiftX))),
+    y: Math.round(Math.max(0, Math.min(maxY, (h - size) / 2 + maxY * shiftY))),
+    width: size,
+    height: size
+  };
+}
+
+function sampleSourceCells(width, height, rect) {
+  const srcW = sourceCanvas.width;
+  const srcH = sourceCanvas.height;
+  const source = sourceCtx.getImageData(0, 0, srcW, srcH).data;
+  const image = lowCtx.createImageData(width, height);
+  const out = image.data;
+  const blockW = rect.width / width;
+  const blockH = rect.height / height;
+  const weightedGlass = prefs.paletteMode === 'soft' || prefs.paletteMode === 'glass' || prefs.paletteMode === 'glassV2';
+
+  for (let y = 0; y < height; y++) {
+    const y0 = rect.y + Math.floor(y * blockH);
+    const y1 = Math.min(srcH, Math.max(y0 + 1, rect.y + Math.floor((y + 1) * blockH)));
+    for (let x = 0; x < width; x++) {
+      const x0 = rect.x + Math.floor(x * blockW);
+      const x1 = Math.min(srcW, Math.max(x0 + 1, rect.x + Math.floor((x + 1) * blockW)));
+      const cx = (x0 + x1 - 1) / 2;
+      const cy = (y0 + y1 - 1) / 2;
+      const rx = Math.max(1, (x1 - x0) / 2);
+      const ry = Math.max(1, (y1 - y0) / 2);
+      let r = 0;
+      let g = 0;
+      let b = 0;
+      let a = 0;
+      let total = 0;
+
+      for (let sy = y0; sy < y1; sy++) {
+        let index = (sy * srcW + x0) * 4;
+        for (let sx = x0; sx < x1; sx++) {
+          const alpha = source[index + 3] / 255;
+          const dx = (sx - cx) / rx;
+          const dy = (sy - cy) / ry;
+          const center = weightedGlass ? Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) * 0.72) : 0;
+          const weight = alpha * (1 + center * 0.92);
+          r += SRGB_TO_LINEAR[source[index]] * weight;
+          g += SRGB_TO_LINEAR[source[index + 1]] * weight;
+          b += SRGB_TO_LINEAR[source[index + 2]] * weight;
+          a += source[index + 3] * (weightedGlass ? (1 + center * 0.36) : 1);
+          total += weight;
+          index += 4;
+        }
+      }
+
+      const outIndex = (y * width + x) * 4;
+      const count = (x1 - x0) * (y1 - y0);
+      if (total > 0) {
+        out[outIndex] = linearToSrgb(r / total);
+        out[outIndex + 1] = linearToSrgb(g / total);
+        out[outIndex + 2] = linearToSrgb(b / total);
+        out[outIndex + 3] = a / count;
+      } else {
+        out[outIndex + 3] = 0;
+      }
+    }
+  }
+
+  return image;
+}
+
+function drawGlassFacets(width, height, pitch) {
+  if (pitch < 8) return;
+  outCtx.save();
+  outCtx.globalCompositeOperation = 'source-over';
+  outCtx.lineWidth = Math.max(1, Math.floor(pitch * 0.045));
+
+  const isV2 = prefs.paletteMode === 'glassV2';
+  outCtx.strokeStyle = isV2 ? 'rgba(0, 0, 0, 0.055)' : 'rgba(0, 0, 0, 0.095)';
+  outCtx.lineWidth = 1;
+  outCtx.beginPath();
+  for (let x = pitch; x < width; x += pitch) {
+    outCtx.moveTo(x + 0.5, 0);
+    outCtx.lineTo(x + 0.5, height);
+  }
+  for (let y = pitch; y < height; y += pitch) {
+    outCtx.moveTo(0, y + 0.5);
+    outCtx.lineTo(width, y + 0.5);
+  }
+  outCtx.stroke();
+
+  for (let y = 0; y < height; y += pitch) {
+    for (let x = 0; x < width; x += pitch) {
+      const w = Math.min(pitch, width - x);
+      const h = Math.min(pitch, height - y);
+      const inset = Math.max(1, Math.floor(pitch * 0.08));
+
+      outCtx.strokeStyle = isV2 ? 'rgba(255, 255, 255, 0.035)' : 'rgba(255, 255, 255, 0.052)';
+      outCtx.beginPath();
+      outCtx.moveTo(x + inset, y + inset);
+      outCtx.lineTo(x + w - inset, y + inset);
+      outCtx.moveTo(x + inset, y + inset);
+      outCtx.lineTo(x + inset, y + h - inset);
+      outCtx.stroke();
+
+      outCtx.strokeStyle = isV2 ? 'rgba(0, 0, 0, 0.052)' : 'rgba(0, 0, 0, 0.085)';
+      outCtx.beginPath();
+      outCtx.moveTo(x + w - inset, y + inset);
+      outCtx.lineTo(x + w - inset, y + h - inset);
+      outCtx.moveTo(x + inset, y + h - inset);
+      outCtx.lineTo(x + w - inset, y + h - inset);
+      outCtx.stroke();
+    }
+  }
+
+  outCtx.restore();
+}
+
+function softenGlassV2(width, height) {
+  outCtx.save();
+  outCtx.globalAlpha = 0.28;
+  outCtx.filter = 'blur(0.8px)';
+  outCtx.imageSmoothingEnabled = false;
+  outCtx.drawImage(pixelCanvas, 0, 0, width, height);
+  outCtx.filter = 'none';
+  outCtx.globalAlpha = 1;
+  outCtx.restore();
+}
+
+function drawGlassV2Case(width, height, pitch) {
+  const edge = Math.max(4, Math.round(pitch * 0.14));
+
+  outCtx.save();
+  outCtx.globalCompositeOperation = 'source-over';
+
+  const side = outCtx.createLinearGradient(0, 0, width, 0);
+  side.addColorStop(0, 'rgba(255, 255, 255, 0.62)');
+  side.addColorStop(0.025, 'rgba(255, 255, 255, 0.32)');
+  side.addColorStop(0.075, 'rgba(255, 255, 255, 0.04)');
+  side.addColorStop(0.50, 'rgba(255, 255, 255, 0)');
+  side.addColorStop(0.925, 'rgba(255, 255, 255, 0.05)');
+  side.addColorStop(0.975, 'rgba(255, 255, 255, 0.30)');
+  side.addColorStop(1, 'rgba(255, 255, 255, 0.58)');
+  outCtx.fillStyle = side;
+  outCtx.fillRect(0, 0, width, height);
+
+  const topSheen = outCtx.createLinearGradient(0, 0, 0, Math.max(1, height * 0.14));
+  topSheen.addColorStop(0, 'rgba(255, 255, 255, 0.24)');
+  topSheen.addColorStop(0.38, 'rgba(255, 255, 255, 0.08)');
+  topSheen.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  outCtx.fillStyle = topSheen;
+  outCtx.fillRect(0, 0, width, Math.max(1, height * 0.14));
+
+  const bottomSheen = outCtx.createLinearGradient(0, height * 0.88, 0, height);
+  bottomSheen.addColorStop(0, 'rgba(255, 255, 255, 0)');
+  bottomSheen.addColorStop(0.72, 'rgba(255, 255, 255, 0.16)');
+  bottomSheen.addColorStop(1, 'rgba(255, 255, 255, 0.08)');
+  outCtx.fillStyle = bottomSheen;
+  outCtx.fillRect(0, height * 0.88, width, height * 0.12);
+
+  outCtx.strokeStyle = 'rgba(255, 255, 255, 0.62)';
+  outCtx.lineWidth = Math.max(2, Math.round(edge * 0.40));
+  outCtx.strokeRect(edge * 0.32, edge * 0.32, width - edge * 0.64, height - edge * 0.64);
+
+  outCtx.strokeStyle = 'rgba(30, 24, 22, 0.30)';
+  outCtx.lineWidth = Math.max(1, Math.round(edge * 0.20));
+  outCtx.strokeRect(edge * 1.05, edge * 1.05, width - edge * 2.1, height - edge * 2.1);
+
+  outCtx.restore();
+}
+
+function drawGlassCase(width, height, pitch) {
+  const edge = Math.max(5, Math.round(pitch * 0.18));
+  const base = Math.max(10, Math.round(pitch * 0.34));
+
+  outCtx.save();
+  outCtx.globalCompositeOperation = 'source-over';
+
+  const topSheen = outCtx.createLinearGradient(0, 0, 0, Math.max(1, height * 0.22));
+  topSheen.addColorStop(0, 'rgba(255, 255, 255, 0.28)');
+  topSheen.addColorStop(0.36, 'rgba(255, 255, 255, 0.10)');
+  topSheen.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  outCtx.fillStyle = topSheen;
+  outCtx.fillRect(0, 0, width, Math.max(1, height * 0.24));
+
+  const sideSheen = outCtx.createLinearGradient(0, 0, width, 0);
+  sideSheen.addColorStop(0, 'rgba(255, 255, 255, 0.48)');
+  sideSheen.addColorStop(0.035, 'rgba(255, 255, 255, 0.18)');
+  sideSheen.addColorStop(0.08, 'rgba(255, 255, 255, 0)');
+  sideSheen.addColorStop(0.92, 'rgba(255, 255, 255, 0)');
+  sideSheen.addColorStop(0.965, 'rgba(255, 255, 255, 0.16)');
+  sideSheen.addColorStop(1, 'rgba(255, 255, 255, 0.44)');
+  outCtx.fillStyle = sideSheen;
+  outCtx.fillRect(0, 0, width, height);
+
+  const baseGlow = outCtx.createLinearGradient(0, height - base, 0, height);
+  baseGlow.addColorStop(0, 'rgba(255, 255, 255, 0)');
+  baseGlow.addColorStop(0.42, 'rgba(255, 255, 255, 0.34)');
+  baseGlow.addColorStop(0.7, 'rgba(255, 255, 255, 0.72)');
+  baseGlow.addColorStop(1, 'rgba(255, 255, 255, 0.26)');
+  outCtx.fillStyle = baseGlow;
+  outCtx.fillRect(0, height - base, width, base);
+
+  outCtx.strokeStyle = 'rgba(255, 255, 255, 0.78)';
+  outCtx.lineWidth = Math.max(2, Math.round(edge * 0.34));
+  outCtx.strokeRect(edge * 0.38, edge * 0.38, width - edge * 0.76, height - edge * 0.76);
+
+  outCtx.strokeStyle = 'rgba(0, 0, 0, 0.24)';
+  outCtx.lineWidth = Math.max(1, Math.round(edge * 0.16));
+  outCtx.strokeRect(edge * 1.05, edge * 1.05, width - edge * 2.1, height - edge * 2.1);
+
+  outCtx.strokeStyle = 'rgba(255, 255, 255, 0.54)';
+  outCtx.lineWidth = Math.max(1, Math.round(edge * 0.16));
+  outCtx.beginPath();
+  outCtx.moveTo(edge * 1.5, height - base * 0.72);
+  outCtx.lineTo(width - edge * 1.5, height - base * 0.72);
+  outCtx.stroke();
+
+  outCtx.restore();
+}
+
+function processImageData(image, width, height) {
+  const data = image.data;
+  const softLevels = prefs.colorLevels === 16 ? 6 : prefs.colorLevels === 32 ? 8 : 10;
+  const glassLevels = prefs.colorLevels === 16 ? 5 : prefs.colorLevels === 32 ? 6 : 8;
+  const glassV2Levels = prefs.colorLevels === 16 ? 6 : prefs.colorLevels === 32 ? 7 : 9;
+  const ditherStrength = prefs.dither
+    ? (prefs.paletteMode === 'glassV2' ? 4 : prefs.paletteMode === 'glass' ? 6 : 8)
+    : 0;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = (y * width + x) * 4;
+      const alpha = data[i + 3];
+      if (alpha < 8) {
+        data[i] = 0;
+        data[i + 1] = 0;
+        data[i + 2] = 0;
+        data[i + 3] = 0;
+        continue;
+      }
+
+      const dither = ditherStrength
+        ? ((BAYER_4[y & 3][x & 3] / 15) - 0.5) * ditherStrength
+        : 0;
+      let r = data[i] + dither;
+      let g = data[i + 1] + dither;
+      let b = data[i + 2] + dither;
+      [r, g, b] = adjustColor(r, g, b);
+
+      const mapped = prefs.paletteMode === 'glassV2'
+        ? quantizeGlassV2(r, g, b, glassV2Levels)
+        : prefs.paletteMode === 'glass'
+          ? quantizeGlass(r, g, b, glassLevels)
+          : quantizeSoft(r, g, b, softLevels);
+
+      data[i] = mapped[0];
+      data[i + 1] = mapped[1];
+      data[i + 2] = mapped[2];
+      data[i + 3] = alpha;
+    }
+  }
+
+  if (prefs.edge) applyEdges(data, width, height);
+}
+
+function adjustColor(r, g, b) {
+  const brightness = Number(prefs.brightness) * 2.2;
+  const contrast = 1 + Number(prefs.contrast) / 100;
+  const saturation = 1 + Number(prefs.saturation) / 100;
+
+  r = (r - 128) * contrast + 128 + brightness;
+  g = (g - 128) * contrast + 128 + brightness;
+  b = (b - 128) * contrast + 128 + brightness;
+
+  const gray = r * 0.2126 + g * 0.7152 + b * 0.0722;
+  r = gray + (r - gray) * saturation;
+  g = gray + (g - gray) * saturation;
+  b = gray + (b - gray) * saturation;
+  return [clamp255(r), clamp255(g), clamp255(b)];
+}
+
+function quantizeAuto(r, g, b, levels) {
+  const step = 255 / Math.max(1, levels - 1);
+  return [
+    clamp255(Math.round(r / step) * step),
+    clamp255(Math.round(g / step) * step),
+    clamp255(Math.round(b / step) * step)
+  ];
+}
+
+function quantizeSoft(r, g, b, levels) {
+  const snapped = quantizeAuto(r, g, b, levels);
+  const amount = 0.52;
+  return [
+    clamp255(r + (snapped[0] - r) * amount),
+    clamp255(g + (snapped[1] - g) * amount),
+    clamp255(b + (snapped[2] - b) * amount)
+  ];
+}
+
+function quantizeGlass(r, g, b, levels) {
+  const boosted = boostGlassColor(r, g, b);
+  const snapped = quantizeAuto(boosted[0], boosted[1], boosted[2], levels);
+  const amount = 0.68;
+  return [
+    clamp255(boosted[0] + (snapped[0] - boosted[0]) * amount),
+    clamp255(boosted[1] + (snapped[1] - boosted[1]) * amount),
+    clamp255(boosted[2] + (snapped[2] - boosted[2]) * amount)
+  ];
+}
+
+function quantizeGlassV2(r, g, b, levels) {
+  const boosted = boostGlassV2Color(r, g, b);
+  const snapped = quantizeAuto(boosted[0], boosted[1], boosted[2], levels);
+  const amount = 0.55;
+  return [
+    clamp255(boosted[0] + (snapped[0] - boosted[0]) * amount),
+    clamp255(boosted[1] + (snapped[1] - boosted[1]) * amount),
+    clamp255(boosted[2] + (snapped[2] - boosted[2]) * amount)
+  ];
+}
+
+function boostGlassV2Color(r, g, b) {
+  const gamma = 0.88;
+  r = 255 * ((r / 255) ** gamma);
+  g = 255 * ((g / 255) ** gamma);
+  b = 255 * ((b / 255) ** gamma);
+  const gray = luminance(r, g, b);
+  const sat = 1.04;
+  r = gray + (r - gray) * sat;
+  g = gray + (g - gray) * sat;
+  b = gray + (b - gray) * sat;
+  const luma = luminance(r, g, b);
+  if (luma > 195) {
+    const lift = Math.min(1, (luma - 195) / 60);
+    r += (255 - r) * lift * 0.46;
+    g += (255 - g) * lift * 0.46;
+    b += (255 - b) * lift * 0.46;
+  }
+  return [clamp255(r), clamp255(g), clamp255(b)];
+}
+
+function boostGlassColor(r, g, b) {
+  const gamma = 0.92;
+  r = 255 * ((r / 255) ** gamma);
+  g = 255 * ((g / 255) ** gamma);
+  b = 255 * ((b / 255) ** gamma);
+  const gray = luminance(r, g, b);
+  const sat = 1.10;
+  r = gray + (r - gray) * sat;
+  g = gray + (g - gray) * sat;
+  b = gray + (b - gray) * sat;
+  const luma = luminance(r, g, b);
+  if (luma > 205) {
+    const lift = (luma - 205) / 50;
+    r += (255 - r) * lift * 0.38;
+    g += (255 - g) * lift * 0.38;
+    b += (255 - b) * lift * 0.38;
+  }
+  return [clamp255(r), clamp255(g), clamp255(b)];
+}
+
+function applyEdges(data, width, height) {
+  const source = new Uint8ClampedArray(data);
+  for (let y = 0; y < height - 1; y++) {
+    for (let x = 0; x < width - 1; x++) {
+      const i = (y * width + x) * 4;
+      if (source[i + 3] < 8) continue;
+      const right = i + 4;
+      const down = i + width * 4;
+      const lum = luminance(source[i], source[i + 1], source[i + 2]);
+      const diffRight = Math.abs(lum - luminance(source[right], source[right + 1], source[right + 2]));
+      const diffDown = Math.abs(lum - luminance(source[down], source[down + 1], source[down + 2]));
+      if (Math.max(diffRight, diffDown) > 42) {
+        data[i] = Math.round(data[i] * 0.28);
+        data[i + 1] = Math.round(data[i + 1] * 0.28);
+        data[i + 2] = Math.round(data[i + 2] * 0.28);
+      }
+    }
+  }
+}
+
+function luminance(r, g, b) {
+  return r * 0.2126 + g * 0.7152 + b * 0.0722;
+}
+
+function clamp255(value) {
+  return Math.max(0, Math.min(255, Math.round(value)));
+}
+
+function linearToSrgb(value) {
+  const v = Math.max(0, Math.min(1, value));
+  const srgb = v <= 0.0031308 ? v * 12.92 : 1.055 * (v ** (1 / 2.4)) - 0.055;
+  return clamp255(srgb * 255);
+}
+
+function clampInt(value, min, max) {
+  const n = Number.parseInt(value, 10);
+  if (!Number.isFinite(n)) return min;
+  return Math.max(min, Math.min(max, n));
+}
+
+function clampNumber(value, min, max) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return min;
+  return Math.max(min, Math.min(max, n));
+}
+
+function updateSourceMeta() {
+  const size = sourceCanvas.width && sourceCanvas.height
+    ? `${sourceCanvas.width}x${sourceCanvas.height}`
+    : '-';
+  setElementText(els.sourceMeta, `${getSourceLabel()} / ${size}`);
+  applyIntakeMax();
+}
+
+function downloadPng() {
+  if (!els.outputCanvas.width || !els.outputCanvas.height) {
+    setStatus(t('status.nothingToDownload'), 'warn');
+    return;
+  }
+  els.outputCanvas.toBlob((blob) => {
+    if (!blob) {
+      setStatus(t('status.pngExportFailed'), 'error');
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `tsui-dot-${timestampName()}.png`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 3000);
+    setStatus(t('status.pngExported'), 'ok');
+  }, 'image/png');
+}
+
+function timestampName() {
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, '0');
+  return [
+    d.getFullYear(),
+    pad(d.getMonth() + 1),
+    pad(d.getDate())
+  ].join('') + '-' + [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join('');
+}
+
+function openAbout() {
+  els.aboutModal.classList.add('open');
+  els.aboutModal.setAttribute('aria-hidden', 'false');
+  els.btnCloseAbout.focus();
+}
+
+function closeAbout() {
+  els.aboutModal.classList.remove('open');
+  els.aboutModal.setAttribute('aria-hidden', 'true');
+  els.btnAbout.focus();
+}
+
+function registerServiceWorker() {
+  if (BUILD_TARGET !== 'cloudflare') return;
+  if (!('serviceWorker' in navigator)) return;
+  if (location.protocol === 'file:') return;
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+
+function setLangPref(lang) {
+  if (!VALID_LANGS.includes(lang)) return;
+  prefs.lang = lang;
+  setLang(lang);
+  savePrefs();
+  renderI18n();
+  updateLangButton();
+  syncControls();
+  updateSourceMeta();
+  renderPixelArt();
+}
+
+function updateLangButton() {
+  const btn = els.btnLang;
+  if (!btn) return;
+  btn.textContent = prefs.lang === 'ja' ? t('lang.button.toEn') : t('lang.button.toJa');
+  btn.setAttribute('title', prefs.lang === 'ja' ? t('lang.button.titleToEn') : t('lang.button.titleToJa'));
+}
+
+function init() {
+  setLang(prefs.lang || detectInitialLang());
+  renderI18n();
+  syncControls();
+  bindEvents();
+  drawSample();
+  renderPixelArt();
+  registerServiceWorker();
+  updateLangButton();
+  setStatus(t('status.appReady', { version: APP_VERSION }), 'ok');
+}
+
+init();
+
+</script>
+</body>
+</html>
