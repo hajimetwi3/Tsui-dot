@@ -1,6 +1,39 @@
 # Tsui Dot
 Tsui Dot は、写真・イラスト・ローカルカメラ映像を 8bit 風の 2D ドット絵やガラス小窓風の小窓表示へ変換する、ブラウザ内完結の Tsui series ツールです。
 
+---
+
+## ウェブサイト版（Cloudflare Pages：PWA対応）
+
+以下URLからご利用可能です。  
+[https://tsuidot.pages.dev/](https://tsuidot.pages.dev/)  
+
+## ダウンロード版
+
+最新版は GitHub リポジトリの Releases から配布しています。
+
+- **リポジトリ**: [https://github.com/hajimetwi3/Tsui-dot](https://github.com/hajimetwi3/Tsui-dot)
+- **最新リリース**: [https://github.com/hajimetwi3/Tsui-dot/releases/latest](https://github.com/hajimetwi3/Tsui-dot/releases/latest)
+- 配布物は単一ファイル `tsui-dot.html` です。インストール作業はありません。
+
+ファイル整合性を確認したい場合は、Release ページに記載された `tsui-dot.html` の SHA-256 ハッシュとローカルのハッシュ値を比較してください。  
+
+## クイックスタート
+
+### 単一HTML版
+
+```
+1. tsui-dot.html をブラウザで開く
+2. 「画像」で写真やイラストを読み込む
+3. MODE / DOT / PALETTE / COLORS / LIGHT / CONTRAST / SAT を調整
+4. 「PNG」で保存
+```
+
+### カメラ
+
+`CAM back / front` で背面優先・前面優先を選び、`CAMERA` でローカルカメラを開始します。`FIX` で現在のフレームを固定できます。
+カメラ利用にはブラウザの許可が必要です。環境によっては `file://` ではカメラが使えない場合があるため、Cloudflare Pages などの HTTPS 配信か `localhost` での確認を推奨します。
+
 
 ## PRIVACY
 
