@@ -55,6 +55,9 @@ Images and camera frames are not sent outside this app.
 Image data and camera frames are not stored in `localStorage` or `IndexedDB`.
 Only UI preferences (such as DOT size and palette) are saved.
 
+The Cloudflare/PWA Service Worker caches only same-origin app shell files during installation. 
+
+Note that the hosting platform (origin server, CDN, etc.) may collect logs separately.
 
 ## Notes
 
